@@ -15,7 +15,7 @@ const Login: NextPage = () => {
           <h2 className="text-2xl font-bold mb-4">Sign in</h2>
           <LoginForm />
           <p>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <a className="font-semibold" href="/auth/signup">
               Sign up here
             </a>

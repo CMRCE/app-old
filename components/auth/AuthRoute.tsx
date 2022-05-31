@@ -16,7 +16,7 @@ export default function AuthRoute({ children }: { children: React.ReactNode }) {
     if (!isUnauthenticatedPath) {
       push("/auth/login");
     }
-  }, [pathname, isLoggedIn]);
+  }, [pathname, isLoggedIn, loading, push]);
 
   return <>{children}</>;
 }

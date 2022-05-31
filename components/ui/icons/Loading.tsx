@@ -89,7 +89,7 @@ export default function Loading({
             cy="50"
             fill="#f4d35e"
             r="25"
-            fill-opacity="0"
+            fillOpacity="0"
             style={{ animationPlayState: "paused" }}
           />
         </svg>

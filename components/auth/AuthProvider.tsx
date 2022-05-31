@@ -68,7 +68,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setUser(fetchedUser.data);
       setLoading(false);
     })();
-  }, []);
+  });
 
   React.useEffect(() => {
     (async () => {
@@ -78,7 +78,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
       if (user) await router.push("/");
     })();
-  }, [user]);
+  }, [user, loading, router]);
 
   return (
     <AuthContext.Provider

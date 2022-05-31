@@ -1,6 +1,7 @@
 import * as React from "react";
 import cx from "clsx";
 import { Logomark, Textmark } from "../icons/Logo";
+import Link from "next/link";
 
 export default function Footer({
   className,
@@ -15,13 +16,12 @@ export default function Footer({
     >
       <div className="mx-auto container px-5 mb-12 grid md:grid-cols-5">
         <div className="col-span-2">
-          <a
-            className="flex title-font font-medium items-center text-gray-900 mb-3"
-            href="/"
-          >
-            <Logomark className="text-white h-8 mr-3" />
-            <Textmark className="text-white h-6" />
-          </a>
+          <Link href="/">
+            <a className="flex title-font font-medium items-center text-gray-900 mb-3">
+              <Logomark className="text-white h-8 mr-3" />
+              <Textmark className="text-white h-6" />
+            </a>
+          </Link>
           <p>
             Offer digital subscriptions quickly with our digital tools and turn
             on recurring revenue for your business.
@@ -32,26 +32,28 @@ export default function Footer({
             <h4 className="text-lg font-semibold mb-3">Why OurShop</h4>
             <div className="mb-3 space-y-1">
               <div>
-                <a className="text-brand-yellow" href="/why-subscriptions">
-                  Why switch to subscriptions?
-                </a>
+                <Link href="/why-subscriptions">
+                  <a className="text-brand-yellow">
+                    Why switch to subscriptions?
+                  </a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/why-subscriptions">
-                  Why choose OurShop?
-                </a>
+                <Link href="/why-subscriptions">
+                  <a className="text-brand-yellow">Why choose OurShop?</a>
+                </Link>
               </div>
             </div>
             <div className="space-y-1">
               <div>
-                <a className="text-brand-yellow" href="/pricing">
-                  Pricing and Commissions
-                </a>
+                <Link href="/pricing">
+                  <a className="text-brand-yellow">Pricing and Commissions</a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/merchant-support">
-                  Merchant Support Programs
-                </a>
+                <Link href="/merchant-support">
+                  <a className="text-brand-yellow">Merchant Support Programs</a>
+                </Link>
               </div>
             </div>
           </div>
@@ -59,19 +61,19 @@ export default function Footer({
             <h4 className="text-lg font-semibold mb-3">Company</h4>
             <div className="mb-3 space-y-1">
               <div>
-                <a className="text-brand-yellow" href="/about">
-                  About
-                </a>
+                <Link href="/about">
+                  <a className="text-brand-yellow">About</a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/contact">
-                  Contact
-                </a>
+                <Link href="/contact">
+                  <a className="text-brand-yellow">Contact</a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/updates">
-                  Updates
-                </a>
+                <Link href="/updates">
+                  <a className="text-brand-yellow">Updates</a>
+                </Link>
               </div>
             </div>
             <div />
@@ -80,19 +82,19 @@ export default function Footer({
             <h4 className="text-lg font-semibold mb-3">Developers</h4>
             <div className="mb-3 space-y-1">
               <div>
-                <a className="text-brand-yellow" href="/developers">
-                  Overview
-                </a>
+                <Link href="/developers">
+                  <a className="text-brand-yellow">Overview</a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/api/docs">
-                  API Documentation
-                </a>
+                <Link href="/api/docs">
+                  <a className="text-brand-yellow">API Documentation</a>
+                </Link>
               </div>
               <div>
-                <a className="text-brand-yellow" href="/product-roadmap">
-                  Product Roadmap
-                </a>
+                <Link href="/product-roadmap">
+                  <a className="text-brand-yellow">Product Roadmap</a>
+                </Link>
               </div>
             </div>
             <div />

@@ -52,7 +52,7 @@ export default function LoginForm({
       </div>
       <div className="mb-3">
         {errors.map((error, key) => (
-          <p className="text-sm text-red-500">{error}</p>
+          <p key={key} className="text-sm text-red-500">{error}</p>
         ))}
       </div>
       <div className="mb-6 flex items-center justify-between">
