@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import LoginForm from "../../components/auth/LoginForm";
 import authImg from "../../components/ui/images/auth.svg";
 
@@ -16,9 +17,9 @@ const Login: NextPage = () => {
           <LoginForm />
           <p>
             Don&apos;t have an account?{" "}
-            <a className="font-semibold" href="/auth/signup">
-              Sign up here
-            </a>
+            <Link href="/auth/signup">
+              <a className="font-semibold">Sign up here</a>
+            </Link>
           </p>
         </div>
         <div className="hidden md:block md:w-2/3 p-12">
