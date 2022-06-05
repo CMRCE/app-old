@@ -45,8 +45,13 @@ const BusinessProvider = ({ children }: { children: React.ReactNode }) => {
 
   const selectBusiness: SelectBusinessFunc = async ({ id, index }) => {
     if (id) {
-      const business = await apiClient.get(`business/${id}`);
-      setBusiness(business);
+      const business = await apiClient.get(
+        `business/${id}`,
+        cookies.get("ourshop_token")
+      );
+      if (business?.status === "success") {
+        setBusiness(business.data);
+      }
       return;
     }
 
