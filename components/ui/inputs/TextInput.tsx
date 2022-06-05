@@ -15,7 +15,7 @@ const TextInput = React.forwardRef<
         data-component="TextInput"
         className={cx(
           className,
-          "block w-full border-b-2 outline-none border-gray-300 focus:border-black font-semibold"
+          "block w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
         )}
         {...props}
       />

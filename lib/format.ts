@@ -1,5 +1,5 @@
 export function formatMoney(input: number, currency: string) {
-  const formatter = new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat("en-NG", {
     style: "currency",
     currency: currency,
   });

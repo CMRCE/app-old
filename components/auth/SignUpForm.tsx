@@ -6,6 +6,7 @@ import { SignUpParams, useAuth } from "./AuthProvider";
 import Button from "../ui/inputs/Button";
 import Loading from "../ui/icons/Loading";
 import { Country } from "../../types";
+import Select from "../ui/inputs/Select";
 
 export default function SignUpForm({
   as: Component = "div",
@@ -77,7 +78,7 @@ export default function SignUpForm({
         </div>
         <div className="w-full mb-6">
           <label htmlFor="country">Country</label>
-          <select
+          <Select
             required
             className="w-full border-b-2 outline-none border-gray-300 focus:border-black font-semibold"
             {...register("selectedCountry")}
@@ -89,7 +90,7 @@ export default function SignUpForm({
                 {country.name}
               </option>
             ))}
-          </select>
+          </Select>
         </div>
         <div className="w-full">
           <label htmlFor="mobile">Phone number</label>

@@ -5,7 +5,11 @@ import { User } from "../../types";
 import { useRouter } from "next/router";
 import AuthRoute, { allowUnauthenticatedAccess } from "./AuthRoute";
 
-type LoginFunc = (params: { email: string; password: string }) => Promise<void>;
+type LoginFunc = (params: {
+  email: string;
+  password: string;
+  redirect?: string;
+}) => Promise<void>;
 
 export type SignUpParams = {
   first_name: string;
@@ -41,7 +45,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = React.useState<User>();
   const router = useRouter();
 
-  const login: LoginFunc = async ({ email, password }) => {
+  const login: LoginFunc = async ({ email, password, redirect }) => {
     const response = await apiClient.post("login", {
       email,
       password,
@@ -52,9 +56,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     if (response?.status === "success") {
       const { token, ...user } = response.data;
-      cookies.set("ourshop_token", token, { expires: 14 });
+      cookies.set("ourshop_token", token, { expires: 1 });
       setUser(user);
       setLoading(false);
+      await router.push(redirect ?? "/");
     }
   };
 
@@ -85,9 +90,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
     if (response?.status === "success") {
       const { token, ...user } = response.data;
-      cookies.set("ourshop_token", token, { expires: 14 });
+      cookies.set("ourshop_token", token, { expires: 1 });
       setUser(user);
       setLoading(false);
+      await router.push("/");
     }
   };
 
@@ -95,28 +101,23 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     (async () => {
       const token = cookies.get("ourshop_token");
       if (!token && !allowUnauthenticatedAccess(router.pathname)) {
-        console.log("#1");
-        await router.push("/auth/login");
+        await router.push({
+          pathname: "/auth/login",
+          query: `redirect=${router.pathname}`,
+        });
         return;
       }
       if (user || allowUnauthenticatedAccess(router.pathname)) return;
       const fetchedUser = await apiClient.get("user", token);
       if (fetchedUser.status === "error") {
         cookies.remove("ourshop_token");
-        console.log("#2");
         await router.push("/auth/login");
         return;
       }
       setUser(fetchedUser.data);
       setLoading(false);
     })();
-  }, [user]);
-
-  React.useEffect(() => {
-    (async () => {
-      if (user) await router.push("/");
-    })();
-  }, [user, loading, router]);
+  }, [user, router]);
 
   return (
     <AuthContext.Provider

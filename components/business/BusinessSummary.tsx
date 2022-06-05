@@ -40,7 +40,9 @@ export const SummaryCard: React.FC<
             {formatPercentageChange(percentageChange, true)}
           </div>
           <div>
-            <h3 className="font-semibold text-xl md:text-3xl lg:text-5xl xl:text-6xl">{currentValue}</h3>
+            <h3 className="font-semibold text-xl md:text-3xl lg:text-5xl xl:text-6xl">
+              {currentValue}
+            </h3>
           </div>
         </div>
       </div>
