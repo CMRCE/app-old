@@ -2,6 +2,8 @@ import * as React from "react";
 import cx from "clsx";
 import { Business } from "../../types";
 import { formatMoney, formatPercentageChange } from "../../lib/format";
+import { useBusiness } from "./BusinessProvider";
+import Card from "../ui/layout/Card";
 
 export const SummaryCard: React.FC<
   Omit<React.HTMLProps<HTMLDivElement>, "title"> & {
@@ -20,7 +22,7 @@ export const SummaryCard: React.FC<
 }) => {
   return (
     <Component className={cx(className)} {...props}>
-      <div className="bg-white p-4 shadow-sm">
+      <Card>
         <div className="w-3/5">
           <p className="text-base md:text-xl xl:text-2xl">{title}</p>
         </div>
@@ -45,16 +47,17 @@ export const SummaryCard: React.FC<
             </h3>
           </div>
         </div>
-      </div>
+      </Card>
     </Component>
   );
 };
 
 export default function BusinessSummary({
   className,
-  business,
   ...props
-}: React.HTMLProps<HTMLDivElement> & { business: Business }) {
+}: React.HTMLProps<HTMLDivElement>) {
+  const {business} = useBusiness();
+  if (!business) return null;
   return (
     <div data-component="BusinessSummary" className={cx(className)} {...props}>
       <div className="flex justify-between my-3">

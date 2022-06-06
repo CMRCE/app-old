@@ -126,7 +126,7 @@ export default function DashboardLayout({
           "w-full absolute h-screen bg-slate-900": showBusinessMenu,
         })}
       />
-      <div className="min-h-screen px-5 lg:px-12 relative bg-brand-yellow-light bg-opacity-60 lg:ml-64">
+      <div className="min-h-screen px-5 lg:px-12 pb-30 lg:pb-12 relative bg-brand-yellow-light bg-opacity-60 lg:ml-64">
         <Header className="-mx-5 lg:-mx-12 mb-6" />
         <div className="container mx-auto">{children}</div>
       </div>

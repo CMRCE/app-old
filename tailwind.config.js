@@ -16,6 +16,9 @@ const config = {
           },
         },
       },
+      spacing: {
+        30: "7.5rem",
+      },
       backgroundImage: (theme) => ({
         "grid-pattern":
           "linear-gradient(	90deg,	#eee 1.39%,	transparent 1.39%,	transparent 50%,	#eee 50%,	#eee 51.39%,	transparent 51.39%,	transparent 100%),linear-gradient(	0deg,	#eee 1.39%,	#fff 1.39%,	#fff 50%,	#eee 50%,	#eee 51.39%,	#fff 51.39%,	#fff 100%)",

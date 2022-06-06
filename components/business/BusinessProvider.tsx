@@ -62,7 +62,7 @@ const BusinessProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   React.useEffect(() => {
-    if (business) return;
+    if (business && user?.businesses.some((b) => b.id === business.id)) return;
     if (user && user.businesses.length > 0) {
       setBusiness(user.businesses[0]);
     }
