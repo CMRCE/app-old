@@ -5,6 +5,7 @@ import { useAuth } from "../components/auth/AuthProvider";
 import { useBusiness } from "../components/business/BusinessProvider";
 import BusinessSummary from "../components/business/BusinessSummary";
 import DashboardLayout from "../components/dashboard/Layout";
+import PlanSummary from "../components/plans/PlanSummary";
 import Loading from "../components/ui/icons/Loading";
 import Button from "../components/ui/inputs/Button";
 import Card from "../components/ui/layout/Card";
@@ -49,24 +50,53 @@ const Home: NextPage = () => {
                       <Button>View all plans</Button>
                     </Link>
                   </div>
-                  <Card>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h3 className="text-lg font-semibold">Gold Plan</h3>
-                        <p className="text-sm">Monthly - 1</p>
-                      </div>
-                      <h4 className="text-xl font-semibold">{formatMoney(12250, business.currency.code)}</h4>
-                    </div>
-                    <hr className="border-t-2 border-black my-4 px-3" />
-                    <div className="lg:flex justify-between">
-                      <p>Active Subscribers - 54</p>
-                      <p>Pending Payments - 5</p>
-                      <p>Cancellations - 12</p>
-                    </div>
-                    <div className="mt-9 flex justify-end">
-                      <Button>Manage Plan &rsaquo;</Button>
-                    </div>
-                  </Card>
+                  <div className="space-y-3">
+                    <PlanSummary
+                      plan={{
+                        id: "123",
+                        name: "Gold Plan",
+                        price: 12500,
+                        interval: {
+                          name: "Monthly",
+                          duration: 1,
+                        },
+                        active_subscribers: 54,
+                        pending_payments: 5,
+                        cancellations: 12,
+                        currency: business.currency,
+                      }}
+                    />
+                    <PlanSummary
+                      plan={{
+                        id: "124",
+                        name: "Silver Plan",
+                        price: 8500,
+                        interval: {
+                          name: "Monthly",
+                          duration: 1,
+                        },
+                        active_subscribers: 174,
+                        pending_payments: 29,
+                        cancellations: 56,
+                        currency: business.currency,
+                      }}
+                    />
+                    <PlanSummary
+                      plan={{
+                        id: "127",
+                        name: "Bronze Plan",
+                        price: 5000,
+                        interval: {
+                          name: "Monthly",
+                          duration: 1,
+                        },
+                        active_subscribers: 92,
+                        pending_payments: 18,
+                        cancellations: 8,
+                        currency: business.currency,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </>
@@ -76,6 +106,11 @@ const Home: NextPage = () => {
               <h1 className="text-3xl font-bold mb-3">
                 Create a business to get started
               </h1>
+              <p className="text-xl font-bold mb-3">
+                Get started with collecting recurring revenue from your
+                customers. Create a business to begin offering subscriptions
+                now.
+              </p>
               <Button as="a" href="/business/create">
                 Create a business
               </Button>

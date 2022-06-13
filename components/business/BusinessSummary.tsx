@@ -1,6 +1,5 @@
 import * as React from "react";
 import cx from "clsx";
-import { Business } from "../../types";
 import { formatMoney, formatPercentageChange } from "../../lib/format";
 import { useBusiness } from "./BusinessProvider";
 import Card from "../ui/layout/Card";
@@ -36,7 +35,7 @@ export const SummaryCard: React.FC<
               })}
             >
               {percentageChange > 0 && <>&uarr;</>}
-              {percentageChange === 0 && <>-</>}
+              {percentageChange === 0 && <>&sdot;</>}
               {percentageChange < 0 && <>&darr;</>}
             </span>{" "}
             {formatPercentageChange(percentageChange, true)}
