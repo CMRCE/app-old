@@ -6,10 +6,9 @@ import { useBusiness } from "../components/business/BusinessProvider";
 import BusinessSummary from "../components/business/BusinessSummary";
 import DashboardLayout from "../components/dashboard/Layout";
 import PlanSummary from "../components/plans/PlanSummary";
+import SubscriberList from "../components/subscribers/SubscriberList";
 import Loading from "../components/ui/icons/Loading";
 import Button from "../components/ui/inputs/Button";
-import Card from "../components/ui/layout/Card";
-import { formatMoney } from "../lib/format";
 
 const Home: NextPage = () => {
   const { loading, user } = useAuth();
@@ -36,66 +35,30 @@ const Home: NextPage = () => {
               <div>
                 <BusinessSummary className="mb-12" />
                 <div className="mb-12">
-                  <div className="flex justify-between">
+                  <div className="flex justify-between mb-6">
                     <h2 className="text-2xl font-semibold">Subscribers</h2>
                     <Link href="/subscribers">
                       <Button>View all subscribers</Button>
                     </Link>
                   </div>
+                  <SubscriberList subscribers={business.subscribers} />
                 </div>
                 <div>
                   <div className="flex justify-between mb-3">
                     <h2 className="text-2xl font-semibold">Plans</h2>
-                    <Link href="/subscribers">
-                      <Button>View all plans</Button>
-                    </Link>
+                    <div className="space-x-3">
+                      <Link href="/plans/new">
+                        <Button variant="secondary">Add plan +</Button>
+                      </Link>
+                      <Link href="/plans">
+                        <Button>View all plans</Button>
+                      </Link>
+                    </div>
                   </div>
                   <div className="space-y-3">
-                    <PlanSummary
-                      plan={{
-                        id: "123",
-                        name: "Gold Plan",
-                        price: 12500,
-                        interval: {
-                          name: "Monthly",
-                          duration: 1,
-                        },
-                        active_subscribers: 54,
-                        pending_payments: 5,
-                        cancellations: 12,
-                        currency: business.currency,
-                      }}
-                    />
-                    <PlanSummary
-                      plan={{
-                        id: "124",
-                        name: "Silver Plan",
-                        price: 8500,
-                        interval: {
-                          name: "Monthly",
-                          duration: 1,
-                        },
-                        active_subscribers: 174,
-                        pending_payments: 29,
-                        cancellations: 56,
-                        currency: business.currency,
-                      }}
-                    />
-                    <PlanSummary
-                      plan={{
-                        id: "127",
-                        name: "Bronze Plan",
-                        price: 5000,
-                        interval: {
-                          name: "Monthly",
-                          duration: 1,
-                        },
-                        active_subscribers: 92,
-                        pending_payments: 18,
-                        cancellations: 8,
-                        currency: business.currency,
-                      }}
-                    />
+                    {business.plans.map((plan) => (
+                      <PlanSummary key={plan.id} plan={plan} />
+                    ))}
                   </div>
                 </div>
               </div>
