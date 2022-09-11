@@ -1,21 +1,25 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import Header from "../components/ui/layout/Header";
-import Footer from "../components/ui/layout/Footer";
 import AuthProvider from "../components/auth/AuthProvider";
 import BusinessProvider from "../components/business/BusinessProvider";
+import Head from "next/head";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <AuthProvider>
-      <BusinessProvider>
-        <div className="min-h-screen flex flex-col">
-          <main className="flex-1">
-            <Component {...pageProps} />
-          </main>
-        </div>
-      </BusinessProvider>
-    </AuthProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
+      <AuthProvider>
+        <BusinessProvider>
+          <div className="min-h-screen flex flex-col">
+            <main className="flex-1">
+              <Component {...pageProps} />
+            </main>
+          </div>
+        </BusinessProvider>
+      </AuthProvider>
+    </>
   );
 }
 
