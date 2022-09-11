@@ -4,6 +4,7 @@ import cookies from "js-cookie";
 import { Business, User } from "../../types";
 import { useRouter } from "next/router";
 import { useAuth } from "../auth/AuthProvider";
+import { PLANS, SUBSCRIBERS } from "./__data__/Mock.data";
 
 type SelectBusinessParams =
   | { id: string; index?: never }
@@ -50,13 +51,26 @@ const BusinessProvider = ({ children }: { children: React.ReactNode }) => {
         cookies.get("ourshop_token")
       );
       if (business?.status === "success") {
-        setBusiness(business.data);
+        // setBusiness(business.data);
+        // Temporary data
+        setBusiness({
+          ...business.data,
+          plans: PLANS.map((plan) => ({
+            ...plan,
+            currency: business.data.currency,
+          })),
+          subscribers: SUBSCRIBERS,
+        });
       }
       return;
     }
 
-    if (index) {
-      setBusiness(user?.businesses[index] ?? undefined);
+    if (index && user) {
+      const business: Business = user.businesses[index];
+      // setBusiness(business ?? undefined);
+      setBusiness(
+        { ...business, plans: PLANS, subscribers: SUBSCRIBERS } ?? undefined
+      );
       return;
     }
   };
@@ -64,7 +78,8 @@ const BusinessProvider = ({ children }: { children: React.ReactNode }) => {
   React.useEffect(() => {
     if (business && user?.businesses.some((b) => b.id === business.id)) return;
     if (user && user.businesses.length > 0) {
-      setBusiness(user.businesses[0]);
+      // setBusiness(user.businesses[0]);
+      setBusiness({...user.businesses[0], plans: PLANS, subscribers: SUBSCRIBERS });
     }
   }, [user, business, setBusiness]);
 

@@ -23,6 +23,8 @@ export interface Business {
 	currency: Currency;
 	role?: string;
 	logo?: string;
+	plans: SubscriptionPlan[];
+	subscribers: Subscriber[];
 }
 
 export interface Country {
@@ -37,4 +39,28 @@ export interface Currency {
 	name: string;
 	symbol: string;
 	code: string;
+}
+
+export interface SubscriptionPlanInterval {
+	name: string,
+	duration: number,
+}
+
+export interface SubscriptionPlan {
+	id: string,
+	name: string,
+	price: number,
+	interval: SubscriptionPlanInterval,
+	active_subscribers: number,
+	pending_payments:number,
+	cancellations: number,
+	currency: Currency,
+}
+
+export interface Subscriber {
+	id: string;
+	name: string;
+	total_spend: number;
+	subscribed_at: string;
+	current_plan: SubscriptionPlan;
 }
