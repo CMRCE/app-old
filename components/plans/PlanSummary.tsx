@@ -4,13 +4,14 @@ import Card from "../ui/layout/Card";
 import { formatMoney } from "../../lib/format";
 import Button from "../ui/inputs/Button";
 import Link from "next/link";
+import { SubscriptionPlan } from "../../types";
 
 export default function PlanSummary({
   as: Component = "div",
   className,
   plan,
   ...props
-}: React.HTMLProps<HTMLDivElement> & { as?: any; plan: any }) {
+}: React.HTMLProps<HTMLDivElement> & { as?: any; plan: SubscriptionPlan }) {
   return (
     <Component
       data-component="PlanSummary"
