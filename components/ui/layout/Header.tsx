@@ -7,23 +7,24 @@ import Button from "../inputs/Button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const LinkItem: React.FC<React.HTMLProps<HTMLAnchorElement> & {as?:any; active?: boolean}> = ({
-  as: Component= 'a',
-  active,
-  className,
-  children,
-  ...props
-}) => (
+const LinkItem = React.forwardRef<
+  HTMLAnchorElement,
+  React.HTMLProps<HTMLAnchorElement> & { as?: any; active?: boolean }
+>(({ as: Component = "a", active, className, children, ...props }) => (
   <Component
-    className={cx(className, "font-semibold cursor-pointer mb-6 md:mb-0 md:mr-5 hover:text-gray-900", {
-      "text-gray-600": !active,
-      "text-black border-b border-black": active,
-    })}
+    className={cx(
+      className,
+      "font-semibold cursor-pointer mb-6 md:mb-0 md:mr-5 hover:text-gray-900",
+      {
+        "text-gray-600": !active,
+        "text-black border-b border-black": active,
+      }
+    )}
     {...props}
   >
     {children}
   </Component>
-);
+));
 
 const NavItems: React.FC<React.HTMLProps<HTMLDivElement>> = () => {
   const { isLoggedIn, loading, logout } = useAuth();
@@ -36,12 +37,16 @@ const NavItems: React.FC<React.HTMLProps<HTMLDivElement>> = () => {
             <LinkItem active={pathname === "/"}>Dashboard</LinkItem>
           </Link>
           <Link href="/">
-            <LinkItem active={pathname.includes("/notifications")}>Notifications</LinkItem>
+            <LinkItem active={pathname.includes("/notifications")}>
+              Notifications
+            </LinkItem>
           </Link>
           <Link href="/">
             <LinkItem active={pathname.includes("/account")}>Account</LinkItem>
           </Link>
-          <LinkItem as='button' onClick={logout}>Log out</LinkItem>
+          <LinkItem as="button" onClick={logout}>
+            Log out
+          </LinkItem>
         </>
       )}
       {!isLoggedIn && !loading && (
