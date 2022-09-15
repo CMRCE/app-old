@@ -14,12 +14,13 @@ function SidebarLink({
   text,
   ...props
 }: React.HTMLProps<HTMLAnchorElement> & { href: string; text: string }) {
-  const { pathname } = useRouter();
+  const { asPath } = useRouter();
+  const currentPath = new URL(`http://example.com${asPath}`);
   return (
     <Link href={href}>
       <a
         className={cx("py-3 px-6 hover:bg-slate-500", {
-          "bg-white hover:bg-white text-black": pathname === href,
+          "bg-white hover:bg-white text-black": href === currentPath.pathname,
         })}
         {...props}
       >
