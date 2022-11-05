@@ -9,6 +9,7 @@ import Select from "../ui/inputs/Select";
 import usePlan, { CreatePlanParams } from "../../hooks/usePlan";
 import { useBusiness } from "../business/BusinessProvider";
 import { useRouter } from "next/router";
+import TextArea from "../ui/inputs/Textarea";
 
 export default function CreatePlanForm({
   className,
@@ -75,7 +76,7 @@ export default function CreatePlanForm({
         </div>
         <div className="w-full mb-6">
           <label htmlFor="email">Description</label>
-          <textarea
+          <TextArea
             defaultValue={plan?.description}
             id="description"
             {...register("description")}
@@ -146,27 +147,31 @@ export default function CreatePlanForm({
         </div>
         <div className="w-full mb-6">
           <label htmlFor="trial_duration_length">Tokenize for trial</label>
-          <div>
-            <label htmlFor="tokenize_for_trial--yes">Yes</label>
-            <TextInput
-              defaultChecked={plan?.tokenize_for_trial}
-              id="tokenize_for_trial--yes"
-              {...register("tokenize_for_trial")}
-              type="radio"
-              value="true"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="tokenize_for_trial--no">No</label>
-            <TextInput
-              defaultChecked={!plan?.tokenize_for_trial}
-              id="tokenize_for_trial--no"
-              {...register("tokenize_for_trial")}
-              type="radio"
-              value=""
-              required
-            />
+          <div className="grid grid-cols-2">
+            <div className="flex">
+              <label htmlFor="tokenize_for_trial--yes">Yes</label>
+              <TextInput
+                className="accent-black"
+                defaultChecked={plan?.tokenize_for_trial}
+                id="tokenize_for_trial--yes"
+                {...register("tokenize_for_trial")}
+                type="radio"
+                value="true"
+                required
+              />
+            </div>
+            <div className="flex">
+              <label htmlFor="tokenize_for_trial--no">No</label>
+              <TextInput
+                className="accent-black"
+                defaultChecked={!plan?.tokenize_for_trial}
+                id="tokenize_for_trial--no"
+                {...register("tokenize_for_trial")}
+                type="radio"
+                value=""
+                required
+              />
+            </div>
           </div>
         </div>
         <div className="w-full mb-6">
