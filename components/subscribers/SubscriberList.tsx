@@ -24,7 +24,7 @@ export default function SubscriberList({
           <tr>
             <th className="py-3 pl-3 w-2/6">Name</th>
             <th className="py-3">Amount</th>
-            <th className="py-3">Plan</th>
+            {/* <th className="py-3">Plan</th> */}
             <th className="py-3">Date</th>
             <th className="py-3">Action</th>
           </tr>
@@ -34,7 +34,7 @@ export default function SubscriberList({
             <tr className="odd:bg-white even:bg-slate-100" key={subscriber.id}>
               <td className="py-3 pl-3 w-2/6">{subscriber.name}</td>
               <td className="py-3">{subscriber.total_spend}</td>
-              <td className="py-3">{subscriber.current_plan.name}</td>
+              {/* <td className="py-3">{subscriber.current_plan.name}</td> */}
               <td className="py-3">{subscriber.subscribed_at}</td>
               <td className="py-3">
                 <Link href={`/subscribers/${subscriber.id}`}>
