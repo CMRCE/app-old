@@ -22,7 +22,7 @@ export default function PlanSummary({
         <div className="flex justify-between items-center">
           <div>
             <h3 className="text-lg font-semibold">{plan.name}</h3>
-            <p className="text-sm">{plan.interval.name} - {plan.interval.duration}</p>
+            <p className="text-sm">{plan.duration_type} - {plan.duration_length}</p>
           </div>
           <h4 className="text-xl font-semibold">
             {formatMoney(plan.price, plan.currency.code)}
@@ -35,7 +35,7 @@ export default function PlanSummary({
           <p>Cancellations - {plan.cancellations}</p>
         </div>
         <div className="mt-9 flex justify-end">
-          <Link href={`/plan/${plan.id}`}>
+          <Link href={`/plans/${plan.id}`}>
             <Button>Manage Plan &rsaquo;</Button>
           </Link>
         </div>

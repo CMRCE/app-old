@@ -42,15 +42,22 @@ export interface Currency {
 }
 
 export interface SubscriptionPlanInterval {
-	name: string,
+	name: "monthly" | "weekly" | "daily",
 	duration: number,
 }
 
+type SubscriptionPlanBenefit = string;
 export interface SubscriptionPlan {
-	id: string,
+	id: number,
 	name: string,
+	description: string;
 	price: number,
-	interval: SubscriptionPlanInterval,
+	benefits: SubscriptionPlanBenefit[],
+	duration_type: SubscriptionPlanInterval["name"],
+	duration_length: SubscriptionPlanInterval["duration"],
+	trial_duration_type: SubscriptionPlanInterval["name"],
+	trial_duration_length: SubscriptionPlanInterval["duration"],
+	tokenize_for_trial: boolean,
 	active_subscribers: number,
 	pending_payments:number,
 	cancellations: number,

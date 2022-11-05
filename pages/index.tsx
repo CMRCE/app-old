@@ -47,7 +47,7 @@ const Home: NextPage = () => {
                   <div className="flex justify-between mb-3">
                     <h2 className="text-2xl font-semibold">Plans</h2>
                     <div className="space-x-3">
-                      <Link href="/plans/new">
+                      <Link href="/plans/create">
                         <Button variant="secondary">Add plan +</Button>
                       </Link>
                       <Link href="/plans">
