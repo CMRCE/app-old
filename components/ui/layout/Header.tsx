@@ -26,6 +26,8 @@ const LinkItem = React.forwardRef<
   </Component>
 ));
 
+LinkItem.displayName = "LinkItem";
+
 const NavItems: React.FC<React.HTMLProps<HTMLDivElement>> = () => {
   const { isLoggedIn, loading, logout } = useAuth();
   const { pathname } = useRouter();

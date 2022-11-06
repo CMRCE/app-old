@@ -25,7 +25,7 @@ const Plan: NextPage<{
       plan ? setPlan(plan) : null;
     }
   })()
-}, [id, plan, business]);
+}, [id, plan, business, getPlan]);
 
   return (
     <>
