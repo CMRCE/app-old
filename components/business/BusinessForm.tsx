@@ -100,13 +100,14 @@ export default function CreateBusinessForm({
         <div className="w-1/2 mb-6">
           <label htmlFor="currency">Currency</label>
           <Select
+            defaultValue={business?.currency.code}
             required
             className="w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
             {...register("selectedCurrency")}
           >
             <option value="">Select a currency</option>
             {currencies.map((currency, key) => (
-              <option key={key} value={key}>
+              <option key={currency.code} value={currency.code}>
                 {currency.name}
               </option>
             ))}
