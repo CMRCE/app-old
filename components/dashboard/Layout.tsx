@@ -124,20 +124,20 @@ export default function DashboardLayout({
       <Sidebar
         className={cx("lg:block lg:h-auto lg:w-auto lg:static", {
           hidden: !showBusinessMenu,
-          "w-full absolute h-screen bg-slate-900": showBusinessMenu,
+          "w-full fixed z-10 h-screen bg-slate-900": showBusinessMenu,
         })}
       />
       <div className="min-h-screen px-5 lg:px-12 pb-30 lg:pb-12 relative bg-brand-yellow-light bg-opacity-60 lg:ml-64">
         <Header className="-mx-5 lg:-mx-12 mb-6" />
         <div className="container mx-auto">{children}</div>
       </div>
-      <div className="fixed bottom-6 right-6">
+      <div className="fixed bottom-6 right-6 z-20">
         <button
           onClick={toggleBusinessMenu}
           className={cx(
             "w-24 h-24 text-5xl rounded-full",
             "flex items-center justify-center",
-            "bg-slate-900 text-white lg:hidden"
+            "bg-black text-white lg:hidden"
           )}
         >
           {showBusinessMenu ? (
