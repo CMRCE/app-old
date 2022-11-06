@@ -9,7 +9,7 @@ import Select from "../ui/inputs/Select";
 import usePlan, { CreatePlanParams } from "../../hooks/usePlan";
 import { useBusiness } from "../business/BusinessProvider";
 import { useRouter } from "next/router";
-import TextArea from "../ui/inputs/Textarea";
+import TextArea from "../ui/inputs/TextArea";
 
 export default function CreatePlanForm({
   className,
