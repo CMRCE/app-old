@@ -38,7 +38,7 @@ const Home: NextPage = () => {
                   <div className="flex justify-between mb-6">
                     <h2 className="text-2xl font-semibold">Subscribers</h2>
                     <Link href="/subscribers">
-                      <Button>View all subscribers</Button>
+                      <Button as="a" href="/plans">View all subscribers</Button>
                     </Link>
                   </div>
                   <SubscriberList subscribers={business.subscribers} />
@@ -51,14 +51,27 @@ const Home: NextPage = () => {
                         <Button variant="secondary">Add plan +</Button>
                       </Link>
                       <Link href="/plans">
-                        <Button>View all plans</Button>
+                        <Button as="a" href="/plans">View all plans</Button>
                       </Link>
                     </div>
                   </div>
                   <div className="space-y-3">
-                    {business.plans.map((plan) => (
-                      <PlanSummary key={plan.id} plan={plan} />
-                    ))}
+                    {business.plans.length === 0 ? (
+                      <p>
+                        No plans created yet.{" "}
+                        <Link href="/plans/create">
+                          <a href="/plans/create" className="underline font-semibold">
+                            Get started by creating your first plan
+                          </a>
+                        </Link>
+                      </p>
+                    ) : (
+                      <>
+                        {business.plans.map((plan) => (
+                          <PlanSummary key={plan.id} plan={plan} />
+                        ))}
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
