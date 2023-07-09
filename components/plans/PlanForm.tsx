@@ -8,18 +8,19 @@ import { SubscriptionPlan, Currency } from "../../types";
 import Select from "../ui/inputs/Select";
 import usePlan, { CreatePlanParams } from "../../hooks/usePlan";
 import { useBusiness } from "../business/BusinessProvider";
-import { useRouter } from "next/router";
 import TextArea from "../ui/inputs/TextArea";
 
 export default function CreatePlanForm({
   className,
   plan,
   currencies,
+  onSuccess,
   ...props
 }: React.HTMLProps<HTMLFormElement> & {
   currencies: Array<Currency>;
-} & { plan?: SubscriptionPlan }) {
-  const router = useRouter();
+  plan?: SubscriptionPlan;
+  onSuccess?: (plan: SubscriptionPlan) => void;
+}) {
   const { register, handleSubmit } = useForm();
   const { business } = useBusiness();
   const { createPlan, updatePlan } = usePlan();
@@ -41,7 +42,7 @@ export default function CreatePlanForm({
           business_id: business?.id,
           id: plan.id,
         });
-        if (result) router.push(`/plans/${result.id}`);
+        if (result && onSuccess) onSuccess(result);
       } else {
         const result = await createPlan({
           ...data,
@@ -49,7 +50,7 @@ export default function CreatePlanForm({
           benefits,
           business_id: business.id,
         });
-        if (result) router.push(`/plans/${result.id}`);
+        if (result && onSuccess) onSuccess(result);
       }
     } catch (error: any) {
       setErrors(error.messages ?? ["There has been an error please try again"]);
@@ -187,7 +188,7 @@ export default function CreatePlanForm({
         <div className="w-1/2 mb-6">
           <label htmlFor="currency">Currency</label>
           <Select
-            defaultValue={plan?.currency?.code}
+            defaultValue={plan?.currency?.id}
             required
             className="w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
             id="currency"
@@ -195,8 +196,8 @@ export default function CreatePlanForm({
           >
             <option value="">Select a currency</option>
             {currencies.map((currency, key) => (
-              <option key={key} value={currency.code}>
-                {currency.name}
+              <option key={key} value={currency.id}>
+                {currency.name} - {currency.code}
               </option>
             ))}
           </Select>

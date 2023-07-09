@@ -27,6 +27,10 @@ const Plan: NextPage<{
   })()
 }, [id, plan, business, getPlan]);
 
+  const onSuccess = (plan: SubscriptionPlan) => {
+    setPlan(plan);
+  }
+
   return (
     <>
       <div>
@@ -48,6 +52,7 @@ const Plan: NextPage<{
           <CreatePlanForm
             plan={plan}
             currencies={currencies}
+            onSuccess={onSuccess}
           />
         </DashboardLayout>
       )}
