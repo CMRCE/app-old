@@ -60,7 +60,7 @@ const Home: NextPage = () => {
                       <p>
                         No plans created yet.{" "}
                         <Link href="/plans/create">
-                          <a href="/plans/create" className="underline font-semibold">
+                          <a className="underline font-semibold">
                             Get started by creating your first plan
                           </a>
                         </Link>
