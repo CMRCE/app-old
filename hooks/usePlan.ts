@@ -28,6 +28,11 @@ type GetPlanFunc = ({
   id: SubscriptionPlan["id"];
   business_id: Business["id"];
 }) => Promise<SubscriptionPlan | null>;
+type GetAllPlansFunc = ({
+  business_id,
+}: {
+  business_id: Business["id"];
+}) => Promise<SubscriptionPlan[] | null>;
 
 const createPlan: CreatePlanFunc = async ({
   business_id,
@@ -126,6 +131,22 @@ const getPlan: GetPlanFunc = async ({ id, business_id }) => {
   return null;
 };
 
-const usePlan = () => ({ createPlan, updatePlan, getPlan });
+const getAllPlans: GetAllPlansFunc = async ({ business_id }) => {
+  const response = await apiClient.get(
+    `business/${business_id}/plans/`,
+    cookies.get("ourshop_token")
+  );
+  if (response?.status === "error") {
+    // TODO: Clean up exception throwing
+    throw { messages: response?.errors };
+  }
+  if (response?.status === "success") {
+    const plans: SubscriptionPlan[] = response.data;
+    return plans;
+  }
+  return null;
+};
+
+const usePlan = () => ({ createPlan, updatePlan, getPlan, getAllPlans });
 
 export default usePlan;
