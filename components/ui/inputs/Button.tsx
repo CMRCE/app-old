@@ -12,9 +12,10 @@ function Button({
   className,
   children,
   ...props
-}: ButtonProps) {
+}: ButtonProps, ref: React.ForwardedRef<HTMLButtonElement>) {
   return (
     <Component
+      ref={ref}
       data-component="Button"
       className={cx(
         className,

@@ -10,8 +10,9 @@ import { useRouter } from "next/router";
 const LinkItem = React.forwardRef<
   HTMLAnchorElement,
   React.HTMLProps<HTMLAnchorElement> & { as?: any; active?: boolean }
->(({ as: Component = "a", active, className, children, ...props }) => (
+>(({ as: Component = "a", active, className, children, ...props }, ref) => (
   <Component
+    ref={ref}
     className={cx(
       className,
       "font-semibold cursor-pointer mb-6 md:mb-0 md:mr-5 hover:text-gray-900",
