@@ -28,7 +28,7 @@ export default function CreateBusinessForm({
   const submit = async (
     data: CreateBusinessParams & {
       selectedCountry: number;
-      selectedCurrency: string;
+      selectedCurrency: number;
     }
   ) => {
     setErrors([]);
@@ -40,14 +40,14 @@ export default function CreateBusinessForm({
           ...businessData,
           id: business.id,
           country_id: selectedCountry,
-          currency_id: parseInt(selectedCurrency) + 1,
+          currency_id: selectedCurrency,
         });
         return;
       }
       await createBusiness({
         ...businessData,
         country_id: selectedCountry,
-        currency_id: parseInt(selectedCurrency) + 1,
+        currency_id: selectedCurrency,
       });
     } catch (error: any) {
       setErrors(error.messages ?? ["There has been an error please try again"]);
@@ -100,15 +100,15 @@ export default function CreateBusinessForm({
         <div className="w-1/2 mb-6">
           <label htmlFor="currency">Currency</label>
           <Select
-            defaultValue={business?.currency.code}
+            defaultValue={business?.currency.id}
             required
             className="w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
             {...register("selectedCurrency")}
           >
             <option value="">Select a currency</option>
-            {currencies.map((currency, key) => (
-              <option key={currency.code} value={currency.code}>
-                {currency.name}
+            {currencies.map((currency) => (
+              <option key={currency.id} value={currency.id}>
+                {currency.name} - {currency.code}
               </option>
             ))}
           </Select>

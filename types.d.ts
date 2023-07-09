@@ -36,6 +36,7 @@ export interface Country {
 }
 
 export interface Currency {
+	id: number;
 	name: string;
 	symbol: string;
 	code: string;
