@@ -76,7 +76,7 @@ export default function Header({
     <>
       <header
         data-component="Header"
-        className={cx(className, "bg-white z-10 body-font")}
+        className={cx(className, "bg-white fixed w-full lg:w-[calc(100%-256px)] z-10 body-font")}
         {...props}
       >
         <div
@@ -99,7 +99,7 @@ export default function Header({
           <nav className="hidden md:ml-4 md:py-1 md:pl-4 md:border-gray-400	md:flex flex-wrap items-center text-base justify-center">
             <NavItems />
           </nav>
-          <button className="md:hidden inline-block">
+          <button className="md:hidden inline-block z-10">
             <Hamburger
               className="h-6 text-black"
               onClick={() => expandMobileMenu((state) => !state)}
