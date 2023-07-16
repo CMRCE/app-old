@@ -65,6 +65,13 @@ export interface SubscriptionPlan {
 	currency: Currency,
 }
 
+export interface SubscriptionPlanGroup {
+	id: number;
+	name: string;
+	description: string;
+	plans: Array<SubscriptionPlan>;
+}
+
 export interface Subscriber {
 	id: string;
 	name: string;
@@ -72,3 +79,5 @@ export interface Subscriber {
 	subscribed_at: string;
 	current_plan: SubscriptionPlan;
 }
+
+export type CreateEntityFromType<T extends {id: number | string}> = Omit<T, "id">;

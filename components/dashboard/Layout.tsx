@@ -94,7 +94,9 @@ function Sidebar({
           <h4 className="text-xl font-semibold pb-2 border-b mb-2">Business</h4>
           <div className="flex flex-col -mx-6">
             <SidebarLink href="/plans/create" text="New Plan" />
+            <SidebarLink href="/plans/groups/create" text="New Plan Group" />
             <SidebarLink href="/plans" text="Manage Plans" />
+            <SidebarLink href="/plans/groups" text="Manage Plan Groups" />
             <SidebarLink href="/payment" text="Payment Info" />
           </div>
         </div>
@@ -123,7 +125,7 @@ export default function DashboardLayout({
     >
       <Sidebar
         className={cx("lg:block lg:h-auto lg:w-auto lg:static", {
-          hidden: !showBusinessMenu,
+          "hidden ": !showBusinessMenu,
           "w-full fixed z-10 h-screen bg-slate-900": showBusinessMenu,
         })}
       />

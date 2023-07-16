@@ -1,17 +1,23 @@
-import type { NextPage } from "next";
+import type { NextPage, NextPageContext } from "next";
 import Head from "next/head";
 import CreatePlanForm from "../../components/plans/PlanForm";
 import DashboardLayout from "../../components/dashboard/Layout";
 import { getStaticCountriesAndCurrencies } from "../../lib/static";
 import { Currency, SubscriptionPlan } from "../../types";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import { getAllPlanGroups } from "hooks/usePlanGroup";
 
 const CreatePlan: NextPage<{
   currencies: Array<Currency>;
 }> = ({ currencies }) => {
-  const router = useRouter();
+  const { query, push } = useRouter();
+  const { group } = query;
   const onSuccess = (plan: SubscriptionPlan) => {
-    router.push(`/plans/${plan.id}`);
+    if (group) {
+      push(`/plans/create?group=${group}`);
+    }
+    push(`/plans/${plan.id}`);
   };
 
   return (
@@ -22,7 +28,11 @@ const CreatePlan: NextPage<{
 
       <DashboardLayout>
         <h2 className="text-2xl font-bold mb-4">Create your plan</h2>
-        <CreatePlanForm currencies={currencies} onSuccess={onSuccess} />
+        <CreatePlanForm
+          groupId={group ? Number(group) : undefined}
+          currencies={currencies}
+          onSuccess={onSuccess}
+        />
       </DashboardLayout>
     </div>
   );

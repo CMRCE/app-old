@@ -1,5 +1,5 @@
-import * as apiClient from "../lib/api";
-import { Business, SubscriptionPlan } from "../types";
+import * as apiClient from "lib/api";
+import { Business, SubscriptionPlan } from "types";
 import cookies from "js-cookie";
 
 export type CreatePlanParams = {
@@ -133,7 +133,7 @@ const getPlan: GetPlanFunc = async ({ id, business_id }) => {
 
 const getAllPlans: GetAllPlansFunc = async ({ business_id }) => {
   const response = await apiClient.get(
-    `business/${business_id}/plans/`,
+    `business/${business_id}/plans`,
     cookies.get("ourshop_token")
   );
   if (response?.status === "error") {

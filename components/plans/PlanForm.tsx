@@ -4,28 +4,42 @@ import TextInput from "../ui/inputs/TextInput";
 import { useForm } from "react-hook-form";
 import Button from "../ui/inputs/Button";
 import Loading from "../ui/icons/Loading";
-import { SubscriptionPlan, Currency } from "../../types";
+import { SubscriptionPlan, Currency, SubscriptionPlanGroup } from "../../types";
 import Select from "../ui/inputs/Select";
 import usePlan, { CreatePlanParams } from "../../hooks/usePlan";
 import { useBusiness } from "../business/BusinessProvider";
 import TextArea from "../ui/inputs/TextArea";
+import usePlanGroup from "hooks/usePlanGroup";
 
 export default function CreatePlanForm({
   className,
   plan,
   currencies,
+  groupId,
   onSuccess,
   ...props
 }: React.HTMLProps<HTMLFormElement> & {
   currencies: Array<Currency>;
   plan?: SubscriptionPlan;
+  groupId?: number;
   onSuccess?: (plan: SubscriptionPlan) => void;
 }) {
   const { register, handleSubmit } = useForm();
   const { business } = useBusiness();
   const { createPlan, updatePlan } = usePlan();
+  const {getAllPlanGroups} = usePlanGroup();
   const [isLoading, setIsLoading] = React.useState(false);
   const [errors, setErrors] = React.useState<Array<string>>([]);
+  const [planGroups, setPlanGroups] = React.useState<SubscriptionPlanGroup[]>();
+
+  React.useEffect(() => {
+    (async () => {
+      if (business) {
+        const plangroups = await getAllPlanGroups({ business_id: business.id });
+        plangroups ? setPlanGroups(plangroups) : null;
+      }
+    })();
+  }, [business, getAllPlanGroups]);
 
   const submit = async (data: any) => {
     if (!business) return;
@@ -57,6 +71,7 @@ export default function CreatePlanForm({
     }
     setIsLoading(false);
   };
+
   return (
     <form
       data-component="CreatePlanForm"
@@ -202,6 +217,24 @@ export default function CreatePlanForm({
             ))}
           </Select>
         </div>
+        {planGroups && (
+          <div className="w-1/2 mb-6">
+            <label htmlFor="currency">Add to Plan Group</label>
+            <Select
+              defaultValue={groupId}
+              required
+              id="group"
+              {...register("group")}
+            >
+              <option value="">Select a plan group</option>
+              {planGroups.map((group, key) => (
+                <option key={key} value={group.id}>
+                  {group.name}
+                </option>
+              ))}
+            </Select>
+          </div>
+        )}
       </div>
       <div className="mb-3">
         {errors.map((error, key) => (
