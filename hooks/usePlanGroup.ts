@@ -39,7 +39,7 @@ const createPlanGroup: CreatePlanGroupFunc = async ({
   plans,
 }) => {
   const response = await apiClient.post(
-    `business/${business_id}/plangroups`,
+    `business/${business_id}/plans/groups`,
     {
       name,
       description,
@@ -66,7 +66,7 @@ const updatePlanGroup: UpdatePlanGroupFunc = async ({
   plans,
 }) => {
   const response = await apiClient.put(
-    `business/${business_id}/plangroups/${id}`,
+    `business/${business_id}/plans/groups/${id}`,
     {
       name,
       description,
@@ -87,7 +87,7 @@ const updatePlanGroup: UpdatePlanGroupFunc = async ({
 
 const getPlanGroup: GetPlanGroupFunc = async ({ id, business_id }) => {
   const response = await apiClient.get(
-    `business/${business_id}/plangroups/${id}`,
+    `business/${business_id}/plans/groups/${id}`,
     cookies.get("ourshop_token")
   );
   if (response?.status === "error") {
@@ -105,7 +105,7 @@ export const getAllPlanGroups: GetAllPlanGroupsFunc = async ({
   business_id,
 }) => {
   const response = await apiClient.get(
-    `business/${business_id}/plangroups`,
+    `business/${business_id}/plans/groups`,
     cookies.get("ourshop_token")
   );
   if (response?.status === "error") {
