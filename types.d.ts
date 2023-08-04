@@ -85,3 +85,15 @@ export type CreateEntityFromType<T extends { id: number | string }> = Omit<
   "id"
 >;
 
+export type Nullable<T> = T extends Array<infer U>
+  ? Array<U> | undefined
+  : T extends Record<K, V>
+  ? {
+      [K in keyof T]: Nullable<T[K]>;
+    }
+  : T | undefined;
+
+export type CreateSubscriptionPlan = Omit<
+  CreateEntityFromType<SubscriptionPlan>,
+  "active_subscribers" | "pending_payments" | "cancellations" | "currency"
+> & { currency: string | number };
