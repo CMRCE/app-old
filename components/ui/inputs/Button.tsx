@@ -22,9 +22,9 @@ function Button({
         "text-sm font-semibold",
         "hover:text-opacity-60 hover:bg-gray-80",
         {
-          "bg-black border p-2 rounded-md border-black text-white":
+          "bg-black border p-2 px-6 rounded-md border-black text-white":
             variant === "primary",
-          "bg-brand-yellow p-2 rounded-md border-black border text-black":
+          "bg-brand-yellow p-2 px-6 rounded-md border-black border text-black":
             variant === "secondary",
           "bg-transparent rounded-none px-1 pb-0 border-b border-black text-black":
             variant === "outline-primary",

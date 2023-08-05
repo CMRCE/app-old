@@ -35,7 +35,7 @@ const Home: NextPage = () => {
               <div>
                 <BusinessSummary className="mb-12" />
                 <div className="mb-12">
-                  <div className="flex justify-between mb-6">
+                  <div className="flex flex-wrap gap-y-2 justify-between mb-6">
                     <h2 className="text-2xl font-semibold">Subscribers</h2>
                     <Link href="/subscribers">
                       <Button as="a" href="/plans">View all subscribers</Button>
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                   <SubscriberList subscribers={business.subscribers} />
                 </div>
                 <div>
-                  <div className="flex justify-between mb-3">
+                  <div className="flex flex-wrap gap-y-2 justify-between mb-3">
                     <h2 className="text-2xl font-semibold">Plans</h2>
                     <div className="space-x-3">
                       <Link href="/plans/create">
