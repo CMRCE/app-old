@@ -17,6 +17,7 @@ import { useBusiness } from "components/business/BusinessProvider";
 import TextArea from "components/ui/inputs/TextArea";
 import usePlanGroup from "hooks/usePlanGroup";
 import InputCard from "components/ui/layout/InputCard";
+import Stepper from "components/ui/navigation/Stepper";
 
 const FormStatus = [
   "name",
@@ -150,228 +151,238 @@ export default function CreatePlanForm({
     setIsLoading(false);
   };
 
+  const formStatusIndex = FormStatus.findIndex((s) => s === formStatus);
+
   return (
-    <form
-      data-component="CreatePlanForm"
-      className={cx(className)}
-      onSubmit={handleSubmit((data) => {
-        const formStatusIndex = FormStatus.findIndex((s) => s === formStatus);
-        if (
-          formStatusIndex === -1 ||
-          formStatusIndex !== FormStatus.length - 1
-        ) {
-          dispatchUpdatedFormState({
-            type: "continue",
-            payload: { plan: data, status: FormStatus[formStatusIndex + 1] },
-          });
-          return;
-        } else {
-          dispatchUpdatedFormState({ type: "submit" });
-        }
-        submit(data as any);
-      })}
-      {...props}
-    >
-      <div className="flex flex-wrap">
-        {formStatus === "name" && (
-          <>
-            <InputCard>
-              <label htmlFor="name">Plan name</label>
-              <TextInput
-                defaultValue={plan?.name}
-                id="name"
-                {...register("name")}
-                type="text"
-                required
-              />
-            </InputCard>
-            <InputCard>
-              <label htmlFor="email">Description</label>
-              <TextArea
-                defaultValue={plan?.description}
-                id="description"
-                {...register("description")}
-                required
-              />
-            </InputCard>
-          </>
-        )}
-        {formStatus === "benefits" && (
-          <>
-            <InputCard>
-              <label htmlFor="name">Plan benefits</label>
-              <TextInput
-                defaultValue={plan?.benefits?.[0]}
-                id="benefits"
-                {...register("benefits")}
-                type="text"
-                required
-              />
-            </InputCard>
-          </>
-        )}
-        {formStatus === "duration" && (
-          <>
-            <InputCard>
-              <label htmlFor="duration_type">Duration type</label>
-              <Select
-                required
-                defaultValue={plan?.duration_type}
-                id="duration_type"
-                {...register("duration_type")}
-              >
-                <option value="">Select a duration type</option>
-                {["Monthly", "Weekly", "Daily"].map((type) => (
-                  <option key={type} value={type.toLowerCase()}>
-                    {type}
-                  </option>
-                ))}
-              </Select>
-            </InputCard>
-            <InputCard>
-              <label htmlFor="duration_length">Duration length</label>
-              <TextInput
-                defaultValue={plan?.duration_length}
-                id="duration_length"
-                {...register("duration_length")}
-                type="number"
-                required
-              />
-            </InputCard>
-          </>
-        )}
-        {formStatus === "trial" && (
-          <>
-            <InputCard>
-              <label htmlFor="trial_duration_type">Trial duration type</label>
-              <Select
-                required
-                defaultValue={plan?.trial_duration_type}
-                id="trial_duration_type"
-                {...register("trial_duration_type")}
-              >
-                <option value="">Select a trial duration type</option>
-                {["Monthly", "Weekly", "Daily"].map((type) => (
-                  <option key={type} value={type.toLowerCase()}>
-                    {type}
-                  </option>
-                ))}
-              </Select>
-            </InputCard>
-            <InputCard>
-              <label htmlFor="trial_duration_length">
-                Trial duration length
-              </label>
-              <TextInput
-                defaultValue={plan?.trial_duration_length}
-                id="trial_duration_length"
-                {...register("trial_duration_length")}
-                type="number"
-                required
-              />
-            </InputCard>
-            <InputCard>
-              <label htmlFor="trial_duration_length">Tokenize for trial</label>
-              <div className="grid grid-cols-2">
-                <div className="flex">
-                  <label htmlFor="tokenize_for_trial--yes">Yes</label>
-                  <TextInput
-                    className="accent-black"
-                    defaultChecked={plan?.tokenize_for_trial}
-                    id="tokenize_for_trial--yes"
-                    {...register("tokenize_for_trial")}
-                    type="radio"
-                    value="true"
-                    required
-                  />
-                </div>
-                <div className="flex">
-                  <label htmlFor="tokenize_for_trial--no">No</label>
-                  <TextInput
-                    className="accent-black"
-                    defaultChecked={!plan?.tokenize_for_trial}
-                    id="tokenize_for_trial--no"
-                    {...register("tokenize_for_trial")}
-                    type="radio"
-                    value=""
-                    required
-                  />
-                </div>
-              </div>
-            </InputCard>
-          </>
-        )}
-        {formStatus === "price" && (
-          <>
-            <InputCard>
-              <label htmlFor="price">Price</label>
-              <TextInput
-                defaultValue={plan?.price}
-                id="price"
-                {...register("price")}
-                type="number"
-                required
-              />
-            </InputCard>
-            <InputCard>
-              <label htmlFor="currency">Currency</label>
-              <Select
-                defaultValue={plan?.currency}
-                required
-                className="w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
-                id="currency"
-                {...register("currency")}
-              >
-                <option value="">Select a currency</option>
-                {currencies.map((currency) => (
-                  <option key={currency.id} value={currency.code}>
-                    {currency.name} - {currency.code}
-                  </option>
-                ))}
-              </Select>
-            </InputCard>
-          </>
-        )}
-        {formStatus === "groups" && (
-          <>
-            {planGroups && (
+    <>
+      <Stepper
+        steps={6}
+        currentStep={formStatusIndex < 1 ? 1 : formStatusIndex + 1}
+        className="mb-6 md:w-3/4 lg:w-1/2 mx-auto"
+      />
+      <form
+        data-component="CreatePlanForm"
+        className={cx(className)}
+        onSubmit={handleSubmit((data) => {
+          if (
+            formStatusIndex === -1 ||
+            formStatusIndex !== FormStatus.length - 1
+          ) {
+            dispatchUpdatedFormState({
+              type: "continue",
+              payload: { plan: data, status: FormStatus[formStatusIndex + 1] },
+            });
+            return;
+          } else {
+            dispatchUpdatedFormState({ type: "submit" });
+          }
+          submit(data as any);
+        })}
+        {...props}
+      >
+        <div className="flex flex-wrap">
+          {formStatus === "name" && (
+            <>
               <InputCard>
-                <label htmlFor="currency">Add to Plan Group</label>
-                <Select
-                  defaultValue={groupId}
+                <label htmlFor="name">Plan name</label>
+                <TextInput
+                  defaultValue={plan?.name}
+                  id="name"
+                  {...register("name")}
+                  type="text"
                   required
-                  id="group"
-                  {...register("group")}
+                />
+              </InputCard>
+              <InputCard>
+                <label htmlFor="email">Description</label>
+                <TextArea
+                  defaultValue={plan?.description}
+                  id="description"
+                  {...register("description")}
+                  required
+                />
+              </InputCard>
+            </>
+          )}
+          {formStatus === "benefits" && (
+            <>
+              <InputCard>
+                <label htmlFor="name">Plan benefits</label>
+                <TextInput
+                  defaultValue={plan?.benefits?.[0]}
+                  id="benefits"
+                  {...register("benefits")}
+                  type="text"
+                  required
+                />
+              </InputCard>
+            </>
+          )}
+          {formStatus === "duration" && (
+            <>
+              <InputCard>
+                <label htmlFor="duration_type">Duration type</label>
+                <Select
+                  required
+                  defaultValue={plan?.duration_type}
+                  id="duration_type"
+                  {...register("duration_type")}
                 >
-                  <option value="">Select a plan group</option>
-                  {planGroups.map((group, key) => (
-                    <option key={key} value={group.id}>
-                      {group.name}
+                  <option value="">Select a duration type</option>
+                  {["Monthly", "Weekly", "Daily"].map((type) => (
+                    <option key={type} value={type.toLowerCase()}>
+                      {type}
                     </option>
                   ))}
                 </Select>
               </InputCard>
-            )}
-          </>
-        )}
-      </div>
-      <div className="mb-3">
-        {errors.map((error, key) => (
-          <p key={key} className="text-sm text-red-500">
-            {error}
-          </p>
-        ))}
-      </div>
-      <div className="mb-6 flex items-center justify-between">
-        <Button type="submit" as="button" variant="primary">
-          {formStatus !== "groups"
-            ? "Next"
-            : existingPlan
-            ? "Update plan"
-            : "Create my plan"}
-        </Button>
-        {isLoading && <Loading play className="h-12 mr-3" />}
-      </div>
-    </form>
+              <InputCard>
+                <label htmlFor="duration_length">Duration length</label>
+                <TextInput
+                  defaultValue={plan?.duration_length}
+                  id="duration_length"
+                  {...register("duration_length")}
+                  type="number"
+                  required
+                />
+              </InputCard>
+            </>
+          )}
+          {formStatus === "trial" && (
+            <>
+              <InputCard>
+                <label htmlFor="trial_duration_type">Trial duration type</label>
+                <Select
+                  required
+                  defaultValue={plan?.trial_duration_type}
+                  id="trial_duration_type"
+                  {...register("trial_duration_type")}
+                >
+                  <option value="">Select a trial duration type</option>
+                  {["Monthly", "Weekly", "Daily"].map((type) => (
+                    <option key={type} value={type.toLowerCase()}>
+                      {type}
+                    </option>
+                  ))}
+                </Select>
+              </InputCard>
+              <InputCard>
+                <label htmlFor="trial_duration_length">
+                  Trial duration length
+                </label>
+                <TextInput
+                  defaultValue={plan?.trial_duration_length}
+                  id="trial_duration_length"
+                  {...register("trial_duration_length")}
+                  type="number"
+                  required
+                />
+              </InputCard>
+              <InputCard>
+                <label htmlFor="trial_duration_length">
+                  Tokenize for trial
+                </label>
+                <div className="grid grid-cols-2">
+                  <div className="flex">
+                    <label htmlFor="tokenize_for_trial--yes">Yes</label>
+                    <TextInput
+                      className="accent-black"
+                      defaultChecked={plan?.tokenize_for_trial}
+                      id="tokenize_for_trial--yes"
+                      {...register("tokenize_for_trial")}
+                      type="radio"
+                      value="true"
+                      required
+                    />
+                  </div>
+                  <div className="flex">
+                    <label htmlFor="tokenize_for_trial--no">No</label>
+                    <TextInput
+                      className="accent-black"
+                      defaultChecked={!plan?.tokenize_for_trial}
+                      id="tokenize_for_trial--no"
+                      {...register("tokenize_for_trial")}
+                      type="radio"
+                      value=""
+                      required
+                    />
+                  </div>
+                </div>
+              </InputCard>
+            </>
+          )}
+          {formStatus === "price" && (
+            <>
+              <InputCard>
+                <label htmlFor="price">Price</label>
+                <TextInput
+                  defaultValue={plan?.price}
+                  id="price"
+                  {...register("price")}
+                  type="number"
+                  required
+                />
+              </InputCard>
+              <InputCard>
+                <label htmlFor="currency">Currency</label>
+                <Select
+                  defaultValue={plan?.currency}
+                  required
+                  className="w-full border-b-2 outline-none border-gray-300 focus:border-black bg-transparent font-semibold"
+                  id="currency"
+                  {...register("currency")}
+                >
+                  <option value="">Select a currency</option>
+                  {currencies.map((currency) => (
+                    <option key={currency.id} value={currency.code}>
+                      {currency.name} - {currency.code}
+                    </option>
+                  ))}
+                </Select>
+              </InputCard>
+            </>
+          )}
+          {formStatus === "groups" && (
+            <>
+              {planGroups && (
+                <InputCard>
+                  <label htmlFor="currency">Add to Plan Group</label>
+                  <Select
+                    defaultValue={groupId}
+                    required
+                    id="group"
+                    {...register("group")}
+                  >
+                    <option value="">Select a plan group</option>
+                    {planGroups.map((group, key) => (
+                      <option key={key} value={group.id}>
+                        {group.name}
+                      </option>
+                    ))}
+                  </Select>
+                </InputCard>
+              )}
+            </>
+          )}
+        </div>
+        <div className="mb-3">
+          {errors.map((error, key) => (
+            <p key={key} className="text-sm text-red-500">
+              {error}
+            </p>
+          ))}
+        </div>
+        <div className="mb-6 flex items-center justify-between">
+          <Button type="submit" as="button" variant="primary">
+            {formStatus !== "groups"
+              ? "Next"
+              : existingPlan
+              ? "Update plan"
+              : "Create my plan"}
+          </Button>
+          {isLoading && <Loading play className="h-12 mr-3" />}
+        </div>
+      </form>
+    </>
   );
 }
