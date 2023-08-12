@@ -14,6 +14,7 @@ export type CreatePlanParams = {
   tokenize_for_trial: boolean;
   price: number;
   currency: string;
+  plan_group_id: number;
 };
 type CreatePlanFunc = (
   params: CreatePlanParams
@@ -46,6 +47,7 @@ const createPlan: CreatePlanFunc = async ({
   tokenize_for_trial,
   price,
   currency,
+  plan_group_id,
 }) => {
   const response = await apiClient.post(
     `business/${business_id}/plans`,
@@ -60,6 +62,7 @@ const createPlan: CreatePlanFunc = async ({
       tokenize_for_trial,
       price,
       currency,
+      plan_group_id,
     },
     cookies.get("ourshop_token")
   );
@@ -87,6 +90,7 @@ const updatePlan: UpdatePlanFunc = async ({
   tokenize_for_trial,
   price,
   currency,
+  plan_group_id,
 }) => {
   const response = await apiClient.put(
     `business/${business_id}/plans/${id}`,
@@ -101,6 +105,7 @@ const updatePlan: UpdatePlanFunc = async ({
       tokenize_for_trial,
       price,
       currency,
+      plan_group_id,
     },
     cookies.get("ourshop_token")
   );

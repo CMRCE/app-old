@@ -124,6 +124,7 @@ export default function CreatePlanForm({
     if (!business) return;
     const tokenize_for_trial = Boolean(data.tokenize_for_trial);
     const benefits = [data.benefits];
+    const plan_group_id = data.group;
     setErrors([]);
     setIsLoading(true);
     try {
@@ -133,6 +134,7 @@ export default function CreatePlanForm({
           tokenize_for_trial,
           benefits,
           business_id: business?.id,
+          plan_group_id,
           id: existingPlan.id,
         });
         if (result && onSuccess) onSuccess(result);
@@ -142,6 +144,7 @@ export default function CreatePlanForm({
           tokenize_for_trial,
           benefits,
           business_id: business.id,
+          plan_group_id
         });
         if (result && onSuccess) onSuccess(result);
       }
